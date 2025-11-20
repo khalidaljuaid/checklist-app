@@ -51,63 +51,79 @@ document.getElementById('submitBtn').addEventListener('click', function () {
         return;
     }
 
-    // 3. Prepare Form Data
-    const formData = new FormData();
-    formData.append('entry.88294716', name);
-    formData.append('entry.1038598923', department);
-    formData.append('entry.1639981020', agreement.value);
-
-    // Append multiple values for checkboxes
-    acknowledgments.forEach(val => {
-        formData.append('entry.1883722675', val);
-    });
-
-    // 4. Submit via Fetch (No-CORS mode)
+    // 3. Prepare Form Data - Using iframe submission method (most reliable)
     submitBtn.disabled = true;
     submitBtn.innerText = 'جاري الإرسال...';
 
-    const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc6KEIh6gWPkodDpAgWTQN1sIQq8r-v1mWv7q2Jdqfk-lUyEw/formResponse';
+    // Create a hidden iframe
+    let iframe = document.getElementById('hidden_iframe');
+    if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.id = 'hidden_iframe';
+        iframe.name = 'hidden_iframe';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+    }
 
-    fetch(GOOGLE_FORM_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: formData
-    })
-        .then(() => {
-            // Success: Hide form and show success message
-            const formSection = document.querySelector('.form-section:last-of-type'); // The agreement section
-            const checkboxesSection = document.querySelector('.form-section:nth-of-type(3)'); // The checkboxes section
-            const pdfSection = document.querySelector('.pdf-section');
-            const personalInfoSection = document.querySelector('.form-section:first-of-type');
+    // Create a form
+    const form = document.createElement('form');
+    form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSc6KEIh6gWPkodDpAgWTQN1sIQq8r-v1mWv7q2Jdqfk-lUyEw/formResponse';
+    form.method = 'POST';
+    form.target = 'hidden_iframe';
 
-            // Hide all sections
-            if (personalInfoSection) personalInfoSection.style.display = 'none';
-            if (pdfSection) pdfSection.style.display = 'none';
-            if (checkboxesSection) checkboxesSection.style.display = 'none';
-            if (formSection) formSection.style.display = 'none';
+    // Add hidden inputs for all fields
+    const addInput = (name, value) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = value;
+        form.appendChild(input);
+    };
 
-            // Create success message container
-            const successDiv = document.createElement('div');
-            successDiv.className = 'form-section';
-            successDiv.style.textAlign = 'center';
-            successDiv.style.padding = '40px 20px';
-            successDiv.innerHTML = `
-                <div style="font-size: 60px; margin-bottom: 20px;">✅</div>
-                <h2 style="color: var(--primary-color); margin-bottom: 15px;">تم إرسال إقرارك بنجاح!</h2>
-                <p style="color: #666; font-size: 1.1rem; margin-bottom: 30px;">شكرًا لك، تم تسجيل ردك في النظام.</p>
-                <a href="../index.html" class="btn-primary" style="text-decoration: none; display: inline-block; margin-left: 10px;">العودة للوحة التحكم</a>
-                <button onclick="window.location.reload()" class="btn-primary" style="background: #eee; color: #333; margin-right: 10px;">إرسال رد آخر</button>
-            `;
+    addInput('entry.88294716', name);
+    addInput('entry.1038598923', department);
+    addInput('entry.1639981020', agreement.value);
 
-            document.querySelector('.container').appendChild(successDiv);
+    // Add all checkbox values
+    acknowledgments.forEach(val => {
+        addInput('entry.1883722675', val);
+    });
 
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        })
-        .catch(err => {
-            console.error('Error:', err);
-            alert('حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.');
-            submitBtn.disabled = false;
-            submitBtn.innerText = originalText;
-        });
+    // Append form to body and submit
+    document.body.appendChild(form);
+    form.submit();
+
+    // Wait a moment for submission, then show success
+    setTimeout(() => {
+        // Remove the form
+        document.body.removeChild(form);
+
+        // Hide all sections
+        const formSection = document.querySelector('.form-section:last-of-type');
+        const checkboxesSection = document.querySelector('.form-section:nth-of-type(3)');
+        const pdfSection = document.querySelector('.pdf-section');
+        const personalInfoSection = document.querySelector('.form-section:first-of-type');
+
+        if (personalInfoSection) personalInfoSection.style.display = 'none';
+        if (pdfSection) pdfSection.style.display = 'none';
+        if (checkboxesSection) checkboxesSection.style.display = 'none';
+        if (formSection) formSection.style.display = 'none';
+
+        // Create success message container
+        const successDiv = document.createElement('div');
+        successDiv.className = 'form-section';
+        successDiv.style.textAlign = 'center';
+        successDiv.style.padding = '40px 20px';
+        successDiv.innerHTML = `
+            <div style="font-size: 60px; margin-bottom: 20px;">✅</div>
+            <h2 style="color: var(--primary-color); margin-bottom: 15px;">تم إرسال إقرارك بنجاح!</h2>
+            <p style="color: #666; font-size: 1.1rem; margin-bottom: 30px;">شكرًا لك، تم تسجيل ردك في النظام.</p>
+            <button onclick="window.location.reload()" class="btn-primary">إرسال رد آخر</button>
+        `;
+
+        document.querySelector('.container').appendChild(successDiv);
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 1000);
 });
