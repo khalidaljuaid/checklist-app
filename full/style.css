@@ -108,6 +108,11 @@ select:focus {
     outline: none;
 }
 
+.input-error {
+    border-color: #e74c3c !important;
+    background-color: #fce4e4;
+}
+
 /* PDF Viewer */
 .pdf-container {
     width: 100%;

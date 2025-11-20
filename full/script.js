@@ -12,12 +12,23 @@ document.getElementById('submitBtn').addEventListener('click', function () {
     const acknowledgments = Array.from(checkboxes).map(cb => cb.value);
 
     // 2. Validation
+    let isValid = true;
+
+    // Reset errors
+    document.getElementById('name').classList.remove('input-error');
+    document.getElementById('department').classList.remove('input-error');
+
     if (!name) {
-        alert('الرجاء كتابة الاسم.');
-        return;
+        document.getElementById('name').classList.add('input-error');
+        isValid = false;
     }
     if (!department) {
-        alert('الرجاء اختيار الإدارة.');
+        document.getElementById('department').classList.add('input-error');
+        isValid = false;
+    }
+
+    if (!isValid) {
+        alert('الرجاء تعبئة جميع الحقول المطلوبة (الاسم والإدارة).');
         return;
     }
     // There are 7 required checkboxes
