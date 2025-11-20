@@ -264,3 +264,15 @@ select:focus {
         /* Reduce internal padding */
     }
 }
+
+/* Embedded Form Styling */
+.embedded-form-container {
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+}
+
+.embedded-form-container iframe {
+    width: 100%;
+    border: none;
+}
