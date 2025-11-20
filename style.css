@@ -27,7 +27,7 @@ body {
     margin: 40px auto;
     padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 header {
@@ -66,7 +66,7 @@ h1 {
 .checklist-item.checked {
     background: linear-gradient(135deg, var(--white), #f9f9f9);
     border-right: 5px solid var(--primary-purple);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .item-content {
@@ -108,4 +108,23 @@ h1 {
 .loading {
     text-align: center;
     color: #777;
+}
+
+.btn-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: var(--primary-purple);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(128, 81, 159, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(128, 81, 159, 0.4);
+    background: var(--dark-purple);
 }
