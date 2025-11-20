@@ -1,0 +1,111 @@
+:root {
+    --primary-purple: #80519F;
+    --dark-purple: #351962;
+    --light-gray: #DEDEDD;
+    --accent-gradient-start: #80519F;
+    --accent-gradient-end: #CCADD9;
+    --white: #ffffff;
+    --text-color: #333;
+    --success-green: #2ecc71;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    color: var(--text-color);
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    background: var(--white);
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: var(--dark-purple);
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.checklist-item {
+    background: var(--light-gray);
+    padding: 15px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    border-right: 5px solid transparent;
+}
+
+.checklist-item.checked {
+    background: linear-gradient(135deg, var(--white), #f9f9f9);
+    border-right: 5px solid var(--primary-purple);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.item-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.department-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--dark-purple);
+}
+
+.responder-name {
+    font-size: 0.9rem;
+    color: var(--primary-purple);
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.status-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    transition: all 0.3s ease;
+}
+
+.checklist-item.checked .status-icon {
+    background: var(--primary-purple);
+    border-color: var(--primary-purple);
+    color: white;
+}
+
+.loading {
+    text-align: center;
+    color: #777;
+}
