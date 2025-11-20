@@ -21,9 +21,15 @@ document.getElementById('submitBtn').addEventListener('click', function () {
         return;
     }
     // There are 7 required checkboxes
+    const checkboxError = document.getElementById('checkboxError');
     if (checkboxes.length < 7) {
+        checkboxError.style.display = 'block';
         alert('يجب الموافقة على جميع بنود الإقرار (7 بنود).');
+        // Scroll to the error
+        checkboxError.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
+    } else {
+        checkboxError.style.display = 'none';
     }
     if (!agreement) {
         alert('الرجاء تحديد الموافقة على الشروط.');

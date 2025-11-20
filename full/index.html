@@ -51,18 +51,20 @@
         <section class="pdf-section">
             <h2>الرجاء الإطلاع على نظام العمل في فريق روّاد</h2>
             <div class="pdf-container">
-                <iframe src="rules.pdf#view=FitH" frameborder="0" allowfullscreen></iframe>
+                <!-- Using Google Docs Viewer for better mobile compatibility -->
+                <iframe
+                    src="https://docs.google.com/gview?url=https://khalidaljuaid.github.io/checklist-app/full/rules.pdf&embedded=true"
+                    frameborder="0"></iframe>
             </div>
             <div class="external-link">
-                <a href="rules.pdf" target="_blank">فتح الملف في نافذة
-                    جديدة ↗</a>
+                <a href="rules.pdf" target="_blank">فتح الملف في نافذة جديدة ↗</a>
             </div>
         </section>
 
         <!-- Step 3: Acknowledgment -->
         <section class="form-section">
             <h2>أُقرّ انا العضو بما يلي :</h2>
-            <div class="checkbox-group">
+            <div class="checkbox-group" id="checkboxGroup">
                 <label class="checkbox-item">
                     <input type="checkbox" name="entry.1883722675" value="قرأت نظام العمل ودليل السياسات بالكامل">
                     <span>قرأت نظام العمل ودليل السياسات بالكامل</span>
@@ -96,6 +98,10 @@
                         value="أوافق على تطبيق الإجراءات في حال وجود تقصير أو مخالفة وفق النظام المعتمد">
                     <span>أوافق على تطبيق الإجراءات في حال وجود تقصير أو مخالفة وفق النظام المعتمد</span>
                 </label>
+            </div>
+            <div id="checkboxError" class="error-message"
+                style="display: none; color: #e74c3c; margin-top: 10px; font-weight: bold;">
+                ⚠️ يجب الموافقة على جميع البنود أعلاه (7 بنود).
             </div>
             <p class="note">يرجى اختيار جميع البنود للتأكيد على الاطلاع الكامل وفهم سياسات فريق AIPioneers قبل الإرسال.
             </p>
